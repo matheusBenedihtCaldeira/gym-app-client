@@ -7,16 +7,17 @@ export default function Header() {
       <div className="md:px-10 py-4 px-7 md:flex justify-between items-center">
         <div className="flex text-2xl cursor-pointer">
           {/*Logo*/}
-          <span className="font-bold">Gym App</span>
+          <Link href="/" className="font-bold">
+            Gym App
+          </Link>
         </div>
-
         {/*Nav with links*/}
         <ul className="md:flex pl-9">
           <li className="my-7 md:my-0 md:ml-8">
             <Link href="/">Home</Link>
           </li>
           <li className="my-7 md:my-0 md:ml-8">
-            <Link href="#">Exercises</Link>
+            <Link href="exercises">Exercises</Link>
           </li>
           <li className="my-7 md:my-0 md:ml-8">
             <Link href="#">Workout</Link>
