@@ -1,7 +1,9 @@
 import { UserIcon } from '@heroicons/react/24/solid';
+import { Menu } from '@headlessui/react';
 import Link from 'next/link';
 
 export default function Header() {
+  const Menu = ['Profile', 'Your Workouts', 'Logout'];
   return (
     <div className="shadow-md w-full bg-red-800 text-white">
       <div className="md:px-10 py-4 px-7 md:flex justify-between items-center">
@@ -23,9 +25,7 @@ export default function Header() {
             <Link href="#">Workout</Link>
           </li>
           <li className="my-7 md:my-0 md:ml-8">
-            <Link href="#">
-              <UserIcon className="w-6 h-6" />
-            </Link>
+            <UserIcon className="h-6 w-6 cursor-pointer" />
           </li>
         </ul>
       </div>

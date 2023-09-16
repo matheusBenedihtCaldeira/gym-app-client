@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function Login() {
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -65,12 +67,12 @@ export default function Login() {
 
         <p className="mt-10 text-center text-sm text-gray-500">
           Not a member?{' '}
-          <a
-            href="#"
+          <Link
+            href="/register"
             className="font-semibold leading-6 text-red-800 hover:text-red-600"
           >
             Create a account
-          </a>
+          </Link>
         </p>
       </div>
     </div>
