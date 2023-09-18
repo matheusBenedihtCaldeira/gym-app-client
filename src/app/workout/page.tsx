@@ -39,7 +39,36 @@ export default function Workout() {
       <RegisterWorkoutWindow
         isVisible={showWindow}
         onClose={() => setShowWindow(false)}
-      />
+      >
+        <div className="py-7 px-7 lg:px-7 text-left">
+          <h2 className="mb-7">Create e new workout</h2>
+          <form className="space-y-" action="#">
+            <div className="mb-5">
+              <label
+                htmlFor="workout-name"
+                className="block mc-2 text-sm font-medium text-gray-900"
+              >
+                Workout name
+              </label>
+              <input
+                type="text"
+                name="workout-name"
+                id="workout-name"
+                className="bg-gray-200 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-1 focus:ring-inset shadow-sm ring-1 ring-inset ring-gray-900 w-full p-2.5 "
+                required
+              />
+            </div>
+            <div className="p-4">
+              <button
+                type="submit"
+                className="w-full text-white bg-red-800 hover:bg-red-700 focus:ring focus:outline-none focus:ring-red-600 font-medium rounded-lg text-sm p-3 text-center transition duration-300 ease-out md:ease-in"
+              >
+                Create
+              </button>
+            </div>
+          </form>
+        </div>
+      </RegisterWorkoutWindow>
     </>
   );
 }

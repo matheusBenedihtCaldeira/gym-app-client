@@ -25,9 +25,10 @@ export default function Register() {
               <div className="mt-2">
                 <input
                   type="text"
-                  name="full-name"
-                  id="full-name"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                  name="name"
+                  id="name"
+                  className="border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-1 focus:ring-inset shadow-sm ring-1 ring-inset ring-gray-900 w-full p-2.5 "
+                  required
                 />
               </div>
             </div>
@@ -44,7 +45,8 @@ export default function Register() {
                   type="email"
                   name="email"
                   id="email"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                  className="border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-1 focus:ring-inset shadow-sm ring-1 ring-inset ring-gray-900 w-full p-2.5 "
+                  required
                 />
               </div>
             </div>
@@ -63,14 +65,15 @@ export default function Register() {
                   id="weight"
                   min="0"
                   step="0.01"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                  className=" border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-1 focus:ring-inset shadow-sm ring-1 ring-inset ring-gray-900 w-full p-2.5 "
+                  required
                 />
               </div>
             </div>
             {/*Password input*/}
             <div className="sm:col-span-3">
               <label
-                htmlFor="weight"
+                htmlFor="password"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
                 Password
@@ -78,10 +81,10 @@ export default function Register() {
               <div className="mt-2">
                 <input
                   type="password"
-                  name="weight"
-                  id="weight"
-                  step="0.01"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
+                  name="password"
+                  id="password"
+                  className="border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-1 focus:ring-inset shadow-sm ring-1 ring-inset ring-gray-900 w-full p-2.5 "
+                  required
                 />
               </div>
             </div>

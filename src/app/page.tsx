@@ -1,4 +1,5 @@
 import Header from '@/components/header';
+import Link from 'next/link';
 export default function Home() {
   return (
     <>
@@ -17,10 +18,10 @@ export default function Home() {
             <article className="flex max-w-xl flex-col items-start justify-between">
               <div className="group relative">
                 <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-                  <a href="#">
+                  <Link href="workout">
                     <span className="absolute inset-0"></span>
                     Manage your workouts
-                  </a>
+                  </Link>
                 </h3>
                 <p className="mt-5 text-sm leading-6 text-gray-600">
                   Our website offers you the opportunity to create personalized
@@ -33,10 +34,10 @@ export default function Home() {
             <article className="flex max-w-xl flex-col items-start justify-between">
               <div className="group relative">
                 <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-                  <a href="#">
+                  <Link href="exercises">
                     <span className="absolute inset-0"></span>
                     Exercises Lists
-                  </a>
+                  </Link>
                 </h3>
                 <p className="mt-5 text-sm leading-6 text-gray-600">
                   We provide focused exercise lists for each muscle group.
