@@ -22,7 +22,7 @@ export default function Header() {
             <Link href="exercises">Exercises</Link>
           </li>
           <li className="my-7 md:my-0 md:ml-8">
-            <Link href="#">Workout</Link>
+            <Link href="workout">Workout</Link>
           </li>
           <li className="my-7 md:my-0 md:ml-8">
             <UserIcon className="h-6 w-6 cursor-pointer" />
