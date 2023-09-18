@@ -61,6 +61,7 @@ export default function Register() {
                   type="number"
                   name="weight"
                   id="weight"
+                  min="0"
                   step="0.01"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6"
                 />
@@ -93,6 +94,14 @@ export default function Register() {
           className="rounded-md bg-red-800 px-20 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-700"
         >
           Register
+        </button>
+      </div>
+      <div className="mt-6 flex items-center justify-center gap-x-6">
+        <button
+          type="button"
+          className="rounded-md bg-gray-700 px-20 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-700"
+        >
+          Cancel
         </button>
       </div>
     </form>
