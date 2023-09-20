@@ -42,10 +42,7 @@ export default function Workout() {
           </li>
         </ul>
       </div>
-      <RegisterWorkoutWindow
-        isVisible={showWindow}
-        onClose={() => setShowWindow(false)}
-      >
+      <RegisterWorkoutWindow isVisible={showWindow}>
         <div className="py-7 px-7 lg:px-7 text-left">
           <h2 className="mb-7">Create e new workout</h2>
           <form className="space-y-" action="#">
@@ -70,6 +67,15 @@ export default function Workout() {
                 className="w-full text-white bg-red-800 hover:bg-red-700 focus:ring focus:outline-none focus:ring-red-600 font-medium rounded-lg text-sm p-3 text-center transition duration-300 ease-out md:ease-in"
               >
                 Create
+              </button>
+            </div>
+            <div className="mt-2 flex items-center justify-center">
+              <button
+                type="button"
+                className="rounded-md bg-gray-700 px-20 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-700  transition duration-300 ease-out md:ease-in"
+                onClick={() => setShowWindow(false)}
+              >
+                Cancel
               </button>
             </div>
           </form>
