@@ -20,7 +20,7 @@ export default function RegisterWorkoutWindow({
           className="text-white text-xl place-self-end"
           onClick={() => onClose()}
         >
-          <XMarkIcon className="h-6 w-6" />
+          <XMarkIcon className="h-6 w-6 hover:text-red-600 transition duration-250 ease-out md:ease-in" />
         </button>
         <div className="bg-white p-2 rounded">{children}</div>
       </div>
