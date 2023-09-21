@@ -7,11 +7,9 @@ export default function Header() {
   return (
     <div className="shadow-md w-full bg-red-800 text-white">
       <div className="md:px-10 py-4 px-7 md:flex justify-between items-center">
-        <div className="flex text-2xl cursor-pointer">
+        <div className="flex text-2xl">
           {/*Logo*/}
-          <Link href="/" className="font-bold">
-            Gym App
-          </Link>
+          <h3 className="text-3xl font-normal">Gym App</h3>
         </div>
       </div>
     </div>
