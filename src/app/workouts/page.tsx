@@ -12,17 +12,17 @@ export default function Workout() {
   return (
     <>
       <Header />
-      <div className="m-10 pl-3">
+      <div className="m-10 pl-2">
         <button
-          className="text-white bg-red-800 rounded-full transition duration-300 ease-out md:ease-in hover:bg-red-700 p-2 drop-shadow-lg"
+          className="text-white bg-red-800 rounded-full transition duration-300 ease-out md:ease-in hover:bg-red-700 p-3 drop-shadow-xl"
           onClick={() => setShowWindow(true)}
         >
           New Workout
         </button>
       </div>
-      <div className="m-10 py-10 sm:py-30">
+      <div className="m-10 py-3 sm:py-30">
         <ul className="divide-y divide-gray-100">
-          <li className="flex justify-between gap-x-6 p-5 mb-7 shadow-lg bg-slate-300 rounded-md">
+          <li className="flex justify-between gap-x-6 p-5 mb-7 shadow-lg bg-slate-300 rounded-md shadow-md w-full">
             <div className="min-w-0 flex-auto">
               <Link
                 href="workout"
@@ -61,7 +61,7 @@ export default function Workout() {
                 required
               />
             </div>
-            <div className="p-4">
+            <div className="p-1">
               <button
                 type="submit"
                 className="w-full text-white bg-red-800 hover:bg-red-700 focus:ring focus:outline-none focus:ring-red-600 font-medium rounded-lg text-sm p-3 text-center transition duration-300 ease-out md:ease-in"
