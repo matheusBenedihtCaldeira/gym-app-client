@@ -1,4 +1,5 @@
 import Header from '@/components/header';
+import { TrashIcon, PencilSquareIcon } from '@heroicons/react/24/outline';
 
 export default function Profile() {
   return (
@@ -40,6 +41,10 @@ export default function Profile() {
               </dd>
             </div>
           </dl>
+        </div>
+        <div className="flex flex-row">
+          <PencilSquareIcon className="h-6 w-6 cursor-pointer transition duration-250 ease-out md:ease-in hover:text-blue-700" />
+          <TrashIcon className="h-6 w-6 cursor-pointer transition duration-250 ease-out md:ease-in hover:text-red-600" />
         </div>
       </div>
     </>
