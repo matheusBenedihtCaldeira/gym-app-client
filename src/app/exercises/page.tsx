@@ -1,5 +1,6 @@
 'use client';
 import Header from '@/components/Header';
+import RegisterExerciseWindow from '@/components/RegisterExerciseWindow';
 import WorkoutMenu from '@/components/WorkoutMenu';
 import axios from '@/services/axios';
 import { PlusIcon } from '@heroicons/react/24/solid';
@@ -17,7 +18,9 @@ type ExerciseProps = {
 };
 
 export default function Exercises() {
-  const [showWindow, setShowWindow] = useState(false);
+  const [showWorkoutWindow, setShowWorkoutWindow] = useState(false);
+  const [showRegisterExerciseWindow, setShowRegisterExerciseWindow] =
+    useState(false);
   const [exercises, setExercises] = useState<ExerciseProps[]>([]);
 
   useEffect(() => {
@@ -37,6 +40,14 @@ export default function Exercises() {
   return (
     <>
       <Header />
+      <div className="m-10 pl-2">
+        <button
+          className="text-white bg-red-800 rounded-full transition duration-300 ease-out md:ease-in hover:bg-red-700 p-3 drop-shadow-xl"
+          onClick={() => setShowRegisterExerciseWindow(true)}
+        >
+          New Workout
+        </button>
+      </div>
       <div className="m-10 py-20 sm:py-10">
         <ul className="divide-y divide-gray-100">
           {exercises.map((exercise) => (
@@ -57,7 +68,7 @@ export default function Exercises() {
               <div className="hidden shrink-0 sm:flex sm:items-center m-2">
                 <button
                   className="hidden shrink-0 sm:flex sm:items-center m-2"
-                  onClick={() => setShowWindow(true)}
+                  onClick={() => setShowWorkoutWindow(true)}
                 >
                   Add to workout
                   <PlusIcon className="h-6 w-6" />
@@ -67,7 +78,7 @@ export default function Exercises() {
           ))}
         </ul>
       </div>
-      <WorkoutMenu isVisible={showWindow}>
+      <WorkoutMenu isVisible={showWorkoutWindow}>
         <div>
           <div className="m-4">
             <label htmlFor="workout">Workout</label>
@@ -91,13 +102,81 @@ export default function Exercises() {
             <button
               type="button"
               className="rounded-md bg-gray-700 px-10 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-700  transition duration-300 ease-out md:ease-in"
-              onClick={() => setShowWindow(false)}
+              onClick={() => setShowWorkoutWindow(false)}
             >
               Cancel
             </button>
           </div>
         </div>
       </WorkoutMenu>
+      <RegisterExerciseWindow isVisible={showRegisterExerciseWindow}>
+        <div className="py-7 px-7 lg:px-7 text-left">
+          <h2 className="mb-7">Create e new workout</h2>
+          <form className="space-y-" action="#">
+            <div className="mb-5">
+              <label
+                htmlFor="workout-name"
+                className="block mc-2 text-sm font-medium text-gray-900"
+              >
+                Exercise name
+              </label>
+              <input
+                type="text"
+                name="workout-name"
+                id="workout-name"
+                className="bg-gray-200 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-1 focus:ring-inset shadow-sm ring-1 ring-inset ring-gray-900 w-full p-2.5 "
+                required
+              />
+            </div>
+            <div className="mb-5">
+              <label
+                htmlFor="workout-name"
+                className="block mc-2 text-sm font-medium text-gray-900"
+              >
+                Description
+              </label>
+              <input
+                type="text"
+                name="workout-name"
+                id="workout-name"
+                className="bg-gray-200 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-1 focus:ring-inset shadow-sm ring-1 ring-inset ring-gray-900 w-full p-2.5 "
+                required
+              />
+            </div>
+            <div className="mb-5">
+              <label
+                htmlFor="workout-name"
+                className="block mc-2 text-sm font-medium text-gray-900"
+              >
+                Muscle group
+              </label>
+              <select className="w-full h-10 rounded-lg" name="" id="">
+                <option value="">Back</option>
+                <option value="">Biceps</option>
+                <option value="">Leg</option>
+              </select>
+            </div>
+
+            <div className="p-1">
+              <button
+                type="submit"
+                className="w-full text-white bg-red-800 hover:bg-red-700 focus:ring focus:outline-none focus:ring-red-600 font-medium rounded-lg text-sm p-3 text-center transition duration-300 ease-out md:ease-in"
+              >
+                Create
+              </button>
+            </div>
+            <div className="mt-2 flex items-center justify-center">
+              <button
+                type="button"
+                className="rounded-md bg-gray-700 px-20 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-700  transition duration-300 ease-out md:ease-in"
+                onClick={() => setShowRegisterExerciseWindow(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </RegisterExerciseWindow>
     </>
   );
 }
