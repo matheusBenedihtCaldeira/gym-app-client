@@ -3,7 +3,7 @@
 import { UserIcon } from '@heroicons/react/24/solid';
 import { Menu } from '@headlessui/react';
 import Link from 'next/link';
-import DropDownMenu from './drop-down-menu';
+import DropDownMenu from './DropDownMenu';
 import { useState } from 'react';
 
 export default function Header() {

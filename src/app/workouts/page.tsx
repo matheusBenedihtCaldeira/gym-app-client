@@ -1,7 +1,7 @@
 'use client';
 
-import Header from '@/components/header';
-import RegisterWorkoutWindow from '@/components/register-workout-window';
+import Header from '@/components/Header';
+import RegisterWorkoutWindow from '@/components/WorkoutMenu';
 import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import React from 'react';

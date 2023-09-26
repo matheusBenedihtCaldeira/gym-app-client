@@ -1,4 +1,4 @@
-import Header from '@/components/header';
+import Header from '@/components/Header';
 import { TrashIcon, PencilSquareIcon } from '@heroicons/react/24/outline';
 
 export default function Profile() {
