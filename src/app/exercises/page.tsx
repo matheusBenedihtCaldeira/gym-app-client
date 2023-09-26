@@ -7,14 +7,16 @@ import { PlusIcon } from '@heroicons/react/24/solid';
 
 import { useEffect, useState } from 'react';
 
+type MuscleGroupProps = {
+  id: number;
+  name: string;
+};
+
 type ExerciseProps = {
   id: number;
   name: string;
   description: string;
-  muscleGroup: {
-    id: number;
-    name: string;
-  };
+  muscleGroup: MuscleGroupProps;
 };
 
 export default function Exercises() {
@@ -22,6 +24,7 @@ export default function Exercises() {
   const [showRegisterExerciseWindow, setShowRegisterExerciseWindow] =
     useState(false);
   const [exercises, setExercises] = useState<ExerciseProps[]>([]);
+  const [muscleGroups, setMuscleGroups] = useState<MuscleGroupProps[]>([]);
 
   useEffect(() => {
     try {
@@ -32,6 +35,19 @@ export default function Exercises() {
         setExercises(response.data);
       };
       getExercises();
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      const getMuscleGroups = async () => {
+        const response =
+          await axios.get<MuscleGroupProps[]>('/api/musclegroups');
+        setMuscleGroups(response.data);
+      };
+      getMuscleGroups();
     } catch (err) {
       console.log(err);
     }
@@ -151,9 +167,11 @@ export default function Exercises() {
                 Muscle group
               </label>
               <select className="w-full h-10 rounded-lg" name="" id="">
-                <option value="">Back</option>
-                <option value="">Biceps</option>
-                <option value="">Leg</option>
+                {muscleGroups.map((muscle) => (
+                  <option key={muscle.id} value="">
+                    {muscle.name}
+                  </option>
+                ))}
               </select>
             </div>
 
