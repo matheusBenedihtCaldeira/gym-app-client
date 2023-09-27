@@ -26,6 +26,10 @@ export default function Exercises() {
   const [exercises, setExercises] = useState<ExerciseProps[]>([]);
   const [muscleGroups, setMuscleGroups] = useState<MuscleGroupProps[]>([]);
 
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [muscleGroup, setMuscleGroup] = useState('');
+
   useEffect(() => {
     try {
       const getExercises = async () => {
@@ -52,6 +56,24 @@ export default function Exercises() {
       console.log(err);
     }
   }, []);
+
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    const muscleGroupId = parseInt(muscleGroup);
+    console.log(
+      `Dados: ${name} ${description} ${muscleGroupId} Tipo do musculo` +
+        typeof muscleGroupId
+    );
+    try {
+      const { data } = await axios.post('/api/register/exercise', {
+        name,
+        description,
+        muscleGroupId,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <>
@@ -128,7 +150,7 @@ export default function Exercises() {
       <RegisterExerciseWindow isVisible={showRegisterExerciseWindow}>
         <div className="py-7 px-7 lg:px-7 text-left">
           <h2 className="mb-7">Create e new workout</h2>
-          <form className="space-y-" action="#">
+          <form className="space-y-" action="#" onSubmit={handleSubmit}>
             <div className="mb-5">
               <label
                 htmlFor="workout-name"
@@ -139,6 +161,8 @@ export default function Exercises() {
               <input
                 type="text"
                 name="workout-name"
+                onChange={(e) => setName(e.target.value)}
+                value={name}
                 id="workout-name"
                 className="bg-gray-200 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-1 focus:ring-inset shadow-sm ring-1 ring-inset ring-gray-900 w-full p-2.5 "
                 required
@@ -153,6 +177,8 @@ export default function Exercises() {
               </label>
               <input
                 type="text"
+                onChange={(e) => setDescription(e.target.value)}
+                value={description}
                 name="workout-name"
                 id="workout-name"
                 className="bg-gray-200 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-1 focus:ring-inset shadow-sm ring-1 ring-inset ring-gray-900 w-full p-2.5 "
@@ -166,9 +192,14 @@ export default function Exercises() {
               >
                 Muscle group
               </label>
-              <select className="w-full h-10 rounded-lg" name="" id="">
+              <select
+                className="w-full h-10 rounded-lg"
+                name="muscleGroupId"
+                id="muscleGroupId"
+                onChange={(e) => setMuscleGroup(e.target.value)}
+              >
                 {muscleGroups.map((muscle) => (
-                  <option key={muscle.id} value="">
+                  <option key={muscle.id} value={muscle.id}>
                     {muscle.name}
                   </option>
                 ))}
