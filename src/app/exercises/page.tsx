@@ -4,8 +4,10 @@ import RegisterExerciseWindow from '@/components/RegisterExerciseWindow';
 import WorkoutMenu from '@/components/WorkoutMenu';
 import axios from '@/services/axios';
 import { PlusIcon } from '@heroicons/react/24/solid';
+import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
 
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 type MuscleGroupProps = {
   id: number;
@@ -20,6 +22,7 @@ type ExerciseProps = {
 };
 
 export default function Exercises() {
+  const router = useRouter();
   const [showWorkoutWindow, setShowWorkoutWindow] = useState(false);
   const [showRegisterExerciseWindow, setShowRegisterExerciseWindow] =
     useState(false);
@@ -76,6 +79,15 @@ export default function Exercises() {
     }
   };
 
+  const handleDelete = async (id: any) => {
+    try {
+      await axios.delete(`api/delete/exercise/${id}`);
+      router.refresh();
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <>
       <Header />
@@ -105,6 +117,15 @@ export default function Exercises() {
                 </p>
               </div>
               <div className="hidden shrink-0 sm:flex sm:items-center m-2">
+                <button className="h-6 w-6 cursor-pointer transition duration-250 ease-out md:ease-in hover:text-blue-700">
+                  <PencilSquareIcon />
+                </button>
+                <button
+                  className="h-6 w-6 cursor-pointer transition duration-250 ease-out md:ease-in hover:text-red-600"
+                  onClick={() => handleDelete(exercise.id)}
+                >
+                  <TrashIcon />
+                </button>
                 <button
                   className="hidden shrink-0 sm:flex sm:items-center m-2"
                   onClick={() => setShowWorkoutWindow(true)}
