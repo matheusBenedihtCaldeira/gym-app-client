@@ -70,6 +70,7 @@ export default function Exercises() {
         description,
         muscleGroupId,
       });
+      setShowRegisterExerciseWindow(false);
     } catch (e) {
       console.log(e);
     }
@@ -198,6 +199,7 @@ export default function Exercises() {
                 id="muscleGroupId"
                 onChange={(e) => setMuscleGroup(e.target.value)}
               >
+                <option value="">Default</option>
                 {muscleGroups.map((muscle) => (
                   <option key={muscle.id} value={muscle.id}>
                     {muscle.name}

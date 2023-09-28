@@ -1,9 +1,33 @@
-import Header from '@/components/register-header';
+'use client';
+import Header from '@/components/RegisterHeader';
+import axios from '@/services/axios';
 import Link from 'next/link';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function Register() {
+  const router = useRouter();
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [weight, setWeight] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.post('/api/register/user', {
+        name,
+        email,
+        weight,
+        password,
+      });
+      router.push('/login');
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <Header />
       <div className="space-y-12 m-20">
         <div className="border-b border-gray-900/10 pb-12">
@@ -28,6 +52,8 @@ export default function Register() {
                   type="text"
                   name="name"
                   id="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   className="border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-1 focus:ring-inset shadow-sm ring-1 ring-inset ring-gray-900 w-full p-2.5 "
                   required
                 />
@@ -46,6 +72,8 @@ export default function Register() {
                   type="email"
                   name="email"
                   id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-1 focus:ring-inset shadow-sm ring-1 ring-inset ring-gray-900 w-full p-2.5 "
                   required
                 />
@@ -66,6 +94,8 @@ export default function Register() {
                   id="weight"
                   min="0"
                   step="0.01"
+                  value={weight}
+                  onChange={(e) => setWeight(e.target.value)}
                   className=" border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-1 focus:ring-inset shadow-sm ring-1 ring-inset ring-gray-900 w-full p-2.5 "
                   required
                 />
@@ -84,6 +114,8 @@ export default function Register() {
                   type="password"
                   name="password"
                   id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   className="border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-1 focus:ring-inset shadow-sm ring-1 ring-inset ring-gray-900 w-full p-2.5 "
                   required
                 />
