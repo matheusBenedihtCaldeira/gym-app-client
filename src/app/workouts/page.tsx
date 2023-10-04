@@ -2,13 +2,33 @@
 
 import Header from '@/components/Header';
 import RegisterWorkoutWindow from '@/components/WorkoutMenu';
+import axios from '@/services/axios';
 import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
+
+type WorkoutProps = {
+  id: number;
+  name: string;
+};
 
 export default function Workout() {
   const [showWindow, setShowWindow] = useState(false);
+  const [workouts, setWorkouts] = useState<WorkoutProps[]>([]);
+
+  useEffect(() => {
+    try {
+      const getWorkouts = async () => {
+        const response = await axios.get<WorkoutProps[]>('/api/index/workouts');
+        setWorkouts(response.data);
+      };
+      getWorkouts();
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
+
   return (
     <>
       <Header />
@@ -22,24 +42,26 @@ export default function Workout() {
       </div>
       <div className="m-10 py-3 sm:py-30">
         <ul className="divide-y divide-gray-100">
-          <li className="flex justify-between gap-x-6 p-5 mb-7 shadow-lg bg-slate-300 rounded-md shadow-md w-full">
-            <div className="min-w-0 flex-auto">
-              <Link
-                href="workout"
-                className="text-base font-semibold leading-6"
-              >
-                Back
-              </Link>
-            </div>
-            <div className="hidden shrink-0 sm:flex sm:items-center m-1">
-              <p className="h-6 w-6 cursor-pointer transition duration-250 ease-out md:ease-in hover:text-blue-700">
-                <PencilSquareIcon />
-              </p>
-              <p className="h-6 w-6 cursor-pointer transition duration-250 ease-out md:ease-in hover:text-red-600">
-                <TrashIcon />
-              </p>
-            </div>
-          </li>
+          {workouts.map((workout) => (
+            <li
+              key={workout.id}
+              className="flex justify-between gap-x-6 p-5 mb-7 shadow-lg bg-slate-300 rounded-md shadow-md w-full"
+            >
+              <div className="min-w-0 flex-auto">
+                <Link href="#" className="text-base font-semibold leading-6">
+                  {workout.name}
+                </Link>
+              </div>
+              <div className="hidden shrink-0 sm:flex sm:items-center m-1">
+                <p className="h-6 w-6 cursor-pointer transition duration-250 ease-out md:ease-in hover:text-blue-700">
+                  <PencilSquareIcon />
+                </p>
+                <p className="h-6 w-6 cursor-pointer transition duration-250 ease-out md:ease-in hover:text-red-600">
+                  <TrashIcon />
+                </p>
+              </div>
+            </li>
+          ))}
         </ul>
       </div>
       <RegisterWorkoutWindow isVisible={showWindow}>
