@@ -7,6 +7,7 @@ import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 type WorkoutProps = {
   id: number;
@@ -14,9 +15,10 @@ type WorkoutProps = {
 };
 
 export default function Workout() {
+  const router = useRouter();
   const [showWindow, setShowWindow] = useState(false);
   const [workouts, setWorkouts] = useState<WorkoutProps[]>([]);
-
+  const [name, setName] = useState('');
   useEffect(() => {
     try {
       const getWorkouts = async () => {
@@ -28,6 +30,29 @@ export default function Workout() {
       console.log(e);
     }
   }, []);
+
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.post('/api/register/workout', {
+        name,
+      });
+      setShowWindow(false);
+      router.refresh();
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const handleDelete = async (id: any) => {
+    try {
+      console.log(id);
+      await axios.delete(`api/delete/workout/${id}`);
+      router.refresh();
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <>
@@ -56,9 +81,12 @@ export default function Workout() {
                 <p className="h-6 w-6 cursor-pointer transition duration-250 ease-out md:ease-in hover:text-blue-700">
                   <PencilSquareIcon />
                 </p>
-                <p className="h-6 w-6 cursor-pointer transition duration-250 ease-out md:ease-in hover:text-red-600">
+                <button
+                  className="h-6 w-6 cursor-pointer transition duration-250 ease-out md:ease-in hover:text-red-600"
+                  onClick={() => handleDelete(workout.id)}
+                >
                   <TrashIcon />
-                </p>
+                </button>
               </div>
             </li>
           ))}
@@ -67,7 +95,7 @@ export default function Workout() {
       <RegisterWorkoutWindow isVisible={showWindow}>
         <div className="py-7 px-7 lg:px-7 text-left">
           <h2 className="mb-7">Create e new workout</h2>
-          <form className="space-y-" action="#">
+          <form className="space-y-" action="#" onSubmit={handleSubmit}>
             <div className="mb-5">
               <label
                 htmlFor="workout-name"
@@ -78,6 +106,8 @@ export default function Workout() {
               <input
                 type="text"
                 name="workout-name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 id="workout-name"
                 className="bg-gray-200 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-1 focus:ring-inset shadow-sm ring-1 ring-inset ring-gray-900 w-full p-2.5 "
                 required

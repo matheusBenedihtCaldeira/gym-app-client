@@ -81,6 +81,7 @@ export default function Exercises() {
 
   const handleDelete = async (id: any) => {
     try {
+      console.log(id);
       await axios.delete(`api/delete/exercise/${id}`);
       router.refresh();
     } catch (e) {
