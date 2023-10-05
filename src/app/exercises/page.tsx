@@ -21,17 +21,25 @@ type ExerciseProps = {
   muscleGroup: MuscleGroupProps;
 };
 
+type WorkoutProps = {
+  id: number;
+  name: number;
+};
+
 export default function Exercises() {
   const router = useRouter();
   const [showWorkoutWindow, setShowWorkoutWindow] = useState(false);
   const [showRegisterExerciseWindow, setShowRegisterExerciseWindow] =
     useState(false);
   const [exercises, setExercises] = useState<ExerciseProps[]>([]);
+  const [workouts, setWorkouts] = useState<WorkoutProps[]>([]);
   const [muscleGroups, setMuscleGroups] = useState<MuscleGroupProps[]>([]);
+  const [exerciseId, setExerciseId] = useState<Number | null>(null);
 
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [muscleGroup, setMuscleGroup] = useState('');
+  const [workoutName, setWorkoutName] = useState('');
 
   useEffect(() => {
     try {
@@ -49,6 +57,18 @@ export default function Exercises() {
 
   useEffect(() => {
     try {
+      const getWorkouts = async () => {
+        const response = await axios.get<WorkoutProps[]>('/api/index/workouts');
+        setWorkouts(response.data);
+      };
+      getWorkouts();
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
       const getMuscleGroups = async () => {
         const response =
           await axios.get<MuscleGroupProps[]>('/api/musclegroups');
@@ -59,6 +79,31 @@ export default function Exercises() {
       console.log(err);
     }
   }, []);
+
+  const handleAddExercise = (id: number) => {
+    setShowWorkoutWindow(true);
+    console.log(id);
+    setExerciseId(id);
+  };
+
+  const handleAddExerciseSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    const workoutId = parseInt(workoutName);
+    console.log(
+      `Dados: Workout Id: ${workoutId} Id do exercicio: ${exerciseId}`
+    );
+    try {
+      const { data } = await axios.post(
+        `api/workout/add-exercise/${workoutId}`,
+        {
+          exerciseId,
+        }
+      );
+      setShowWorkoutWindow(false);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -129,7 +174,7 @@ export default function Exercises() {
                 </button>
                 <button
                   className="hidden shrink-0 sm:flex sm:items-center m-2"
-                  onClick={() => setShowWorkoutWindow(true)}
+                  onClick={() => handleAddExercise(exercise.id)}
                 >
                   Add to workout
                   <PlusIcon className="h-6 w-6" />
@@ -141,33 +186,47 @@ export default function Exercises() {
       </div>
       <WorkoutMenu isVisible={showWorkoutWindow}>
         <div>
-          <div className="m-4">
-            <label htmlFor="workout">Workout</label>
-          </div>
-          <div>
-            <select className="w-full h-10 rounded-lg" name="" id="">
-              <option value="">Back</option>
-              <option value="">Biceps</option>
-              <option value="">Leg</option>
-            </select>
-          </div>
-          <div className="mt-5 flex items-center justify-center">
-            <button
-              type="submit"
-              className="px-20 py-2 text-white bg-red-800 hover:bg-red-700 focus:ring focus:outline-none focus:ring-red-600 font-medium rounded-lg text-sm p-3 text-center transition duration-300 ease-out md:ease-in"
-            >
-              Add to workout
-            </button>
-          </div>
-          <div className="mt-2 flex items-center justify-center">
-            <button
-              type="button"
-              className="rounded-md bg-gray-700 px-10 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-700  transition duration-300 ease-out md:ease-in"
-              onClick={() => setShowWorkoutWindow(false)}
-            >
-              Cancel
-            </button>
-          </div>
+          <form
+            className="space-y-"
+            action="#"
+            onSubmit={handleAddExerciseSubmit}
+          >
+            <div className="m-4">
+              <label htmlFor="workout">Workout</label>
+            </div>
+            <div>
+              <select
+                className="w-full h-10 rounded-lg"
+                name="muscleGroupId"
+                id="muscleGroupId"
+                onChange={(e) => setWorkoutName(e.target.value)}
+              >
+                <option value="">Default</option>
+                {workouts.map((workout) => (
+                  <option key={workout.id} value={workout.id}>
+                    {workout.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="mt-5 flex items-center justify-center">
+              <button
+                type="submit"
+                className="px-20 py-2 text-white bg-red-800 hover:bg-red-700 focus:ring focus:outline-none focus:ring-red-600 font-medium rounded-lg text-sm p-3 text-center transition duration-300 ease-out md:ease-in"
+              >
+                Add to workout
+              </button>
+            </div>
+            <div className="mt-2 flex items-center justify-center">
+              <button
+                type="button"
+                className="rounded-md bg-gray-700 px-10 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-700  transition duration-300 ease-out md:ease-in"
+                onClick={() => setShowWorkoutWindow(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
         </div>
       </WorkoutMenu>
       <RegisterExerciseWindow isVisible={showRegisterExerciseWindow}>
